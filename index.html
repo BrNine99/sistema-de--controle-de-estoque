@@ -21,15 +21,15 @@
             <h2>Cadastrar produto</h2>
             <form>
                 <label for="nome">Nome do produto:</label>
-                <input type="text" name="nome" id="nome" placeholder="Ex.: Headset Gamer">
+                <input type="text" name="nome" id="nome" placeholder="Ex.: Headset Gamer" required>
 
                 <label for="preco">Preço unitário (R$):</label>
-                <input type="number" name="preco" id="preco" step="0.01" min="0.01" placeholder="0,00">
+                <input type="number" name="preco" id="preco" step="0.01" min="0.01" placeholder="0,00" required>
 
                 <label for="quantCadastro">Quantidade:</label>
-                <input type="number" name="quantCadastro" id="quantCadastro" step="1" min="0" placeholder="0">
+                <input type="number" name="quantCadastro" id="quantCadastro" step="1" min="0" placeholder="0" required>
 
-                <button type="button" id="botaoCadastro">+ Cadastrar produto</button>
+                <button type="submit" id="botaoCadastro">+ Cadastrar produto</button>
             </form>
         </section>
 
