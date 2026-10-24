@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estoque System</title>
+</head>
+<body>
+    <header>
+        <h1>Controle de Estoque</h1>        
+    </header>
+    <main>
+        <section id="gerenciamento-produto">
+            <h2>Painel de gerenciamento de produtos</h2>
+            <p id="quantProduto">Produtos:</p>
+            <p id="unidade">Unidades:</p>
+            <p id="total">Valor total:</p>
+        </section>
+
+        <section id="cadastro-produtos">
+            <h2>Cadastrar produto</h2>
+            <form>
+                <label for="nome">Nome do produto:</label>
+                <input type="text" name="nome" id="nome" placeholder="Ex.: Headset Gamer">
+
+                <label for="preco">Preço unitário (R$):</label>
+                <input type="number" name="preco" id="preco" step="0.01" min="0.01" placeholder="0,00">
+
+                <label for="quantCadastro">Quantidade:</label>
+                <input type="number" name="quantCadastro" id="quantCadastro" step="1" min="0" placeholder="0">
+
+                <button type="button" id="botaoCadastro">+ Cadastrar produto</button>
+            </form>
+        </section>
+
+        <section id="produtos-cadastrados">
+            <h2>Produtos cadastrados</h2>
+            <input type="text" name="buscar" id="buscar" placeholder="Buscar produto pelo nome...">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Produto</th>
+                        <th scope="col">Preço</th>
+                        <th scope="col">Quantidade</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody id="lista-produtos">
+                    <!-- Produtos inseridos pelo JavaScript -->
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+    
+</body>
+</html>
