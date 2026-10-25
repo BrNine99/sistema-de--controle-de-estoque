@@ -19,6 +19,13 @@ const quantidadeProdutos = obterElemento("quantProduto");
 const unidades = obterElemento("unidade");
 const total = obterElemento("total");
 
+// Limpar Campos
+const limparCampos = () => {
+    obterElemento("nome").value = "";
+    obterElemento("preco").value = "";
+    obterElemento("quantCadastro").value = "";
+}
+
 
 // Cria Evento Submit do Formulário
 formulario.addEventListener("submit", function(event) {
@@ -67,6 +74,8 @@ formulario.addEventListener("submit", function(event) {
     renderizarProdutos();
 
     atualizarPainel();
+
+    limparCampos();
 
 });
 
