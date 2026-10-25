@@ -8,6 +8,12 @@ let proximoId = 1;
 
 const formulario = obterElemento("form-cadastro");
 
+// Formatar moeda
+const formatarMoeda = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+});
+
 // Cria elemento HTML
 const tbody = obterElemento("lista-produtos");
 
@@ -60,6 +66,7 @@ formulario.addEventListener("submit", function(event) {
 
 });
 
+// Função Renderizar Produto no HTML
 function renderizarProdutos() {
     tbody.replaceChildren();
 
@@ -72,9 +79,9 @@ function renderizarProdutos() {
     const celulaTotal = document.createElement("td");
 
     celulaNome.textContent = produto.nome;
-    celulaPreco.textContent = produto.preco;
+    celulaPreco.textContent = formatarMoeda.format(produto.preco);
     celulaQuantidade.textContent = produto.quantidade;
-    celulaTotal.textContent = (produto.preco) * (produto.quantidade);
+    celulaTotal.textContent = formatarMoeda.format((produto.preco) * (produto.quantidade));
 
     linha.appendChild(celulaNome);
     linha.appendChild(celulaPreco);
