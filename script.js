@@ -62,14 +62,25 @@ formulario.addEventListener("submit", function(event) {
 
 function renderizarProdutos() {
     tbody.replaceChildren();
-    
+
     produtos.forEach(function(produto) {
     const linha = document.createElement("tr");
-    const celula = document.createElement("td");
+    
+    const celulaNome = document.createElement("td");
+    const celulaPreco = document.createElement("td");
+    const celulaQuantidade = document.createElement("td");
+    const celulaTotal = document.createElement("td");
 
-    celula.textContent = produto.nome;
+    celulaNome.textContent = produto.nome;
+    celulaPreco.textContent = produto.preco;
+    celulaQuantidade.textContent = produto.quantidade;
+    celulaTotal.textContent = (produto.preco) * (produto.quantidade);
 
-    linha.appendChild(celula);
+    linha.appendChild(celulaNome);
+    linha.appendChild(celulaPreco);
+    linha.appendChild(celulaQuantidade);
+    linha.appendChild(celulaTotal);
+
     tbody.appendChild(linha);
 
     });
