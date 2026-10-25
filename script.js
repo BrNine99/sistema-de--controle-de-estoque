@@ -6,16 +6,18 @@ const obterElemento = (id) => document.getElementById(id);
 const produtos = [];
 let proximoId = 1;
 
-const formulario = obterElemento("form-cadastro");
-
 // Formatar moeda
 const formatarMoeda = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL"
 });
 
-// Cria elemento HTML
+// Elementos HTML
+const formulario = obterElemento("form-cadastro");
 const tbody = obterElemento("lista-produtos");
+const quantidadeProdutos = obterElemento("quantProduto");
+const unidades = obterElemento("unidade");
+const total = obterElemento("total");
 
 
 // Cria Evento Submit do Formulário
@@ -64,6 +66,8 @@ formulario.addEventListener("submit", function(event) {
     
     renderizarProdutos();
 
+    atualizarPainel();
+
 });
 
 // Função Renderizar Produto no HTML
@@ -92,6 +96,23 @@ function renderizarProdutos() {
 
     });
 
+}
+
+function atualizarPainel() {
+   
+   quantidadeProdutos.textContent = `Produtos: ${produtos.length}`;
+
+   const totalUnidades = produtos.reduce(function(acumulador, produto) {
+        return acumulador + produto.quantidade;        
+    }, 0);
+    
+    unidades.textContent = `Unidades: ${totalUnidades}`;
+
+    const valorTotal = produtos.reduce(function(acumulador, produto) {
+        return acumulador + (produto.preco * produto.quantidade);
+    }, 0);
+
+    total.textContent = `Valor total: ${formatarMoeda.format(valorTotal)}`;     
 }
 
 
