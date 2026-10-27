@@ -71,10 +71,10 @@ formulario.addEventListener("submit", function(event) {
     // Atualiza Contador
     proximoId++;
 
-    // Envia cadastro produto para lista
+    // Envia cadastro do produto para lista
     produtos.push(novoProduto);    
     
-    renderizarProdutos(produtos);
+    filtrarProdutos();
 
     atualizarPainel();
 
@@ -82,9 +82,31 @@ formulario.addEventListener("submit", function(event) {
 
 });
 
+renderizarProdutos(produtos);
+atualizarPainel();
+
 // Função Renderizar Produto no HTML
 function renderizarProdutos(lista) {
     tbody.replaceChildren();
+
+    if(lista.length === 0){
+        const linha = document.createElement("tr");
+        const celula = document.createElement("td");
+
+        celula.colSpan = 5;
+
+        if(produtos.length === 0){
+            celula.textContent = "Nenhum produto cadastrado."
+        } 
+        else {
+            celula.textContent = "Nenhum produto encontrado.";
+        }
+
+        linha.appendChild(celula);
+        tbody.appendChild(linha);
+
+        return;
+    }
 
     lista.forEach(function(produto) {
     const linha = document.createElement("tr");
@@ -98,18 +120,19 @@ function renderizarProdutos(lista) {
     celulaPreco.textContent = formatarMoeda.format(produto.preco);
     celulaQuantidade.textContent = produto.quantidade;
     celulaTotal.textContent = formatarMoeda.format((produto.preco) * (produto.quantidade));
-
-    tbody.appendChild(linha);
-
+    
     linha.appendChild(celulaNome);
     linha.appendChild(celulaPreco);
     linha.appendChild(celulaQuantidade);
     linha.appendChild(celulaTotal);
 
+    tbody.appendChild(linha);
+
     });
 
 }
 
+// Função de atualizar o painel com informações gerais
 function atualizarPainel() {
    
    quantidadeProdutos.textContent = `Produtos: ${produtos.length}`;
@@ -127,18 +150,27 @@ function atualizarPainel() {
     total.textContent = `Valor total: ${formatarMoeda.format(valorTotal)}`;     
 }
 
-inputBusca.addEventListener("input", function(texto) {
-    const textoBusca = texto.target.value;
+// Acessa um elemento HTML por meio do objeto de evento.
+inputBusca.addEventListener("input", function() {
+    filtrarProdutos();    
 
-    const textoTratado = textoBusca.trim().toLowerCase();
+});
+
+// Função para filtrar os produtos da lista
+function filtrarProdutos() {
+    const textoBusca = inputBusca.value;
+
+    const textoTratado = textoBusca.trim().toLowerCase();   
 
     const produtosFiltrados = produtos.filter(function(produto) {
         return produto.nome.toLowerCase().includes(textoTratado);
-    })
+    });
 
     renderizarProdutos(produtosFiltrados);
+}
 
-});
+
+
 
 
 
