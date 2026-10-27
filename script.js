@@ -18,6 +18,7 @@ const tbody = obterElemento("lista-produtos");
 const quantidadeProdutos = obterElemento("quantProduto");
 const unidades = obterElemento("unidade");
 const total = obterElemento("total");
+const inputBusca = obterElemento("buscar");
 
 // Limpar Campos
 const limparCampos = () => {
@@ -67,11 +68,13 @@ formulario.addEventListener("submit", function(event) {
         return;
     }
 
+    // Atualiza Contador
     proximoId++;
 
-    produtos.push(novoProduto);
+    // Envia cadastro produto para lista
+    produtos.push(novoProduto);    
     
-    renderizarProdutos();
+    renderizarProdutos(produtos);
 
     atualizarPainel();
 
@@ -80,10 +83,10 @@ formulario.addEventListener("submit", function(event) {
 });
 
 // Função Renderizar Produto no HTML
-function renderizarProdutos() {
+function renderizarProdutos(lista) {
     tbody.replaceChildren();
 
-    produtos.forEach(function(produto) {
+    lista.forEach(function(produto) {
     const linha = document.createElement("tr");
     
     const celulaNome = document.createElement("td");
@@ -96,12 +99,12 @@ function renderizarProdutos() {
     celulaQuantidade.textContent = produto.quantidade;
     celulaTotal.textContent = formatarMoeda.format((produto.preco) * (produto.quantidade));
 
+    tbody.appendChild(linha);
+
     linha.appendChild(celulaNome);
     linha.appendChild(celulaPreco);
     linha.appendChild(celulaQuantidade);
     linha.appendChild(celulaTotal);
-
-    tbody.appendChild(linha);
 
     });
 
@@ -124,7 +127,18 @@ function atualizarPainel() {
     total.textContent = `Valor total: ${formatarMoeda.format(valorTotal)}`;     
 }
 
+inputBusca.addEventListener("input", function(texto) {
+    const textoBusca = texto.target.value;
 
+    const textoTratado = textoBusca.trim().toLowerCase();
+
+    const produtosFiltrados = produtos.filter(function(produto) {
+        return produto.nome.toLowerCase().includes(textoTratado);
+    })
+
+    renderizarProdutos(produtosFiltrados);
+
+});
 
 
 
