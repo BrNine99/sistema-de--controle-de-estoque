@@ -2,9 +2,10 @@
 // Capturar os Elementos
 const obterElemento = (id) => document.getElementById(id);
 
-// Cria lista produtos e formulário
+// Cria variaveis de controle
 const produtos = [];
 let proximoId = 1;
+let idEmEdicao = null;
 
 // Formatar moeda
 const formatarMoeda = new Intl.NumberFormat("pt-BR", {
@@ -12,19 +13,31 @@ const formatarMoeda = new Intl.NumberFormat("pt-BR", {
     currency: "BRL"
 });
 
-// Elementos HTML
+// Captura Elementos HTML
 const formulario = obterElemento("form-cadastro");
 const tbody = obterElemento("lista-produtos");
 const quantidadeProdutos = obterElemento("quantProduto");
 const unidades = obterElemento("unidade");
 const total = obterElemento("total");
 const inputBusca = obterElemento("buscar");
+const botaoCancelar = obterElemento("cancelar-edicao");
+const botaoSalvar = obterElemento("botaoCadastro");
 
 // Limpar Campos
 const limparCampos = () => {
     obterElemento("nome").value = "";
     obterElemento("preco").value = "";
     obterElemento("quantCadastro").value = "";
+}
+
+function atualizarModoFormulario() {
+    const estaEditando = idEmEdicao !== null;
+
+    botaoSalvar.textContent = estaEditando
+        ? "Salvar alterações"
+        : "+ Cadastrar produto";
+
+    botaoCancelar.hidden = !estaEditando;
 }
 
 
@@ -68,11 +81,33 @@ formulario.addEventListener("submit", function(event) {
         return;
     }
 
-    // Atualiza Contador
-    proximoId++;
+    if(idEmEdicao !== null){
+        const produtoEncontrado = produtos.find(function(item) {
+            return item.id === idEmEdicao;
+        });
 
-    // Envia cadastro do produto para lista
-    produtos.push(novoProduto);    
+        if (!produtoEncontrado) {
+            alert("Produto não encontrado.");
+            return;
+        }
+
+        
+        produtoEncontrado.nome = novoProduto.nome;
+        produtoEncontrado.preco = novoProduto.preco;
+        produtoEncontrado.quantidade = novoProduto.quantidade;
+            
+        idEmEdicao = null;
+        
+    }
+    else {
+        // Atualiza Contador
+        proximoId++;
+
+        // Envia cadastro do produto para lista
+        produtos.push(novoProduto);
+    }
+    
+    atualizarModoFormulario();
     
     filtrarProdutos();
 
@@ -84,6 +119,7 @@ formulario.addEventListener("submit", function(event) {
 
 renderizarProdutos(produtos);
 atualizarPainel();
+atualizarModoFormulario();
 
 // Função Renderizar Produto no HTML
 function renderizarProdutos(lista) {
@@ -117,6 +153,17 @@ function renderizarProdutos(lista) {
     const celulaTotal = document.createElement("td");
     const celulaAcoes = document.createElement("td");
     const botaoExcluir = document.createElement("button");
+    const botaoEditar = document.createElement("button");
+
+    botaoEditar.addEventListener("click", function() {
+        idEmEdicao = produto.id;
+
+        obterElemento("nome").value = produto.nome;
+        obterElemento("preco").value = produto.preco;
+        obterElemento("quantCadastro").value = produto.quantidade;
+
+        atualizarModoFormulario();
+    });    
 
     botaoExcluir.addEventListener("click", function() {
         const indice = produtos.findIndex(function(item) {
@@ -135,8 +182,11 @@ function renderizarProdutos(lista) {
     celulaPreco.textContent = formatarMoeda.format(produto.preco);
     celulaQuantidade.textContent = produto.quantidade;
     celulaTotal.textContent = formatarMoeda.format((produto.preco) * (produto.quantidade));
-    botaoExcluir.textContent = "Excluir";
 
+    botaoExcluir.textContent = "Excluir";
+    botaoEditar.textContent = "Editar";
+
+    celulaAcoes.appendChild(botaoEditar);
     celulaAcoes.appendChild(botaoExcluir);
     
     linha.appendChild(celulaNome);
@@ -150,6 +200,12 @@ function renderizarProdutos(lista) {
     });
 
 }
+
+botaoCancelar.addEventListener("click", function() {
+    idEmEdicao = null;
+    limparCampos();
+    atualizarModoFormulario();
+});
 
 // Função de atualizar o painel com informações gerais
 function atualizarPainel() {
