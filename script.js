@@ -115,16 +115,35 @@ function renderizarProdutos(lista) {
     const celulaPreco = document.createElement("td");
     const celulaQuantidade = document.createElement("td");
     const celulaTotal = document.createElement("td");
+    const celulaAcoes = document.createElement("td");
+    const botaoExcluir = document.createElement("button");
+
+    botaoExcluir.addEventListener("click", function() {
+        const indice = produtos.findIndex(function(item) {
+            return item.id === produto.id;
+        });
+
+        if (indice !== -1) {
+            produtos.splice(indice, 1);
+
+            filtrarProdutos();
+            atualizarPainel();
+        }
+    });
 
     celulaNome.textContent = produto.nome;
     celulaPreco.textContent = formatarMoeda.format(produto.preco);
     celulaQuantidade.textContent = produto.quantidade;
     celulaTotal.textContent = formatarMoeda.format((produto.preco) * (produto.quantidade));
+    botaoExcluir.textContent = "Excluir";
+
+    celulaAcoes.appendChild(botaoExcluir);
     
     linha.appendChild(celulaNome);
     linha.appendChild(celulaPreco);
     linha.appendChild(celulaQuantidade);
     linha.appendChild(celulaTotal);
+    linha.appendChild(celulaAcoes);
 
     tbody.appendChild(linha);
 
