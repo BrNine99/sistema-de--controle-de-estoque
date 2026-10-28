@@ -173,6 +173,12 @@ function renderizarProdutos(lista) {
         if (indice !== -1) {
             produtos.splice(indice, 1);
 
+            if (idEmEdicao === produto.id) {
+                idEmEdicao = null;
+                limparCampos();
+                atualizarModoFormulario();
+            }
+
             filtrarProdutos();
             atualizarPainel();
         }
