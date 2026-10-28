@@ -3,8 +3,15 @@
 const obterElemento = (id) => document.getElementById(id);
 
 // Cria variaveis de controle
-const produtos = [];
-let proximoId = 1;
+const dadosSalvos = localStorage.getItem("produtos");
+
+const produtos = dadosSalvos ? JSON.parse(dadosSalvos) : [];
+    
+const ids = produtos.map(function(produto) {
+    return produto.id;
+});
+
+let proximoId = Math.max(0, ...ids) + 1;
 let idEmEdicao = null;
 
 // Formatar moeda
@@ -38,6 +45,10 @@ function atualizarModoFormulario() {
         : "+ Cadastrar produto";
 
     botaoCancelar.hidden = !estaEditando;
+}
+
+function salvarProdutos() {
+    localStorage.setItem("produtos", JSON.stringify(produtos));
 }
 
 
@@ -106,13 +117,12 @@ formulario.addEventListener("submit", function(event) {
         // Envia cadastro do produto para lista
         produtos.push(novoProduto);
     }
+
+    salvarProdutos();
     
-    atualizarModoFormulario();
-    
+    atualizarModoFormulario();    
     filtrarProdutos();
-
     atualizarPainel();
-
     limparCampos();
 
 });
@@ -172,6 +182,8 @@ function renderizarProdutos(lista) {
 
         if (indice !== -1) {
             produtos.splice(indice, 1);
+
+            salvarProdutos();
 
             if (idEmEdicao === produto.id) {
                 idEmEdicao = null;
