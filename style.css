@@ -1,0 +1,541 @@
+
+/* =========================================
+   CONTROLE DE ESTOQUE - STYLE.CSS
+========================================= */
+
+/* CONFIGURAÇÕES GERAIS */
+
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --background: #f1f5f9;
+    --surface: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --success: #16a34a;
+    --danger: #dc2626;
+    --warning: #d97706;
+    --radius: 12px;
+    --shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* =========================================
+   CABEÇALHO
+========================================= */
+
+header {
+    background: linear-gradient(135deg, #0f172a, #1e3a8a);
+    color: white;
+    padding: 28px 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    max-width: 1200px;
+    margin: auto;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+/* =========================================
+   CONTEÚDO PRINCIPAL
+========================================= */
+
+main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+
+    display: grid;
+    grid-template-columns: 350px minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+section {
+    background: var(--surface);
+    padding: 28px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    min-width: 0;
+}
+
+section h2 {
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #0f172a;
+}
+
+/* =========================================
+   PAINEL DE GERENCIAMENTO
+========================================= */
+
+#gerenciamento-produto {
+    grid-column: 1 / -1;
+
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+#gerenciamento-produto h2 {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+}
+
+#gerenciamento-produto p {
+    background: #f8fafc;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+
+    font-size: 19px;
+    font-weight: 700;
+
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#gerenciamento-produto p:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+}
+
+/* INDICADOR DE PRODUTOS */
+
+#quantProduto {
+    border-left: 5px solid var(--primary) !important;
+    color: var(--primary);
+}
+
+/* INDICADOR DE UNIDADES */
+
+#unidade {
+    border-left: 5px solid var(--success) !important;
+    color: var(--success);
+}
+
+/* INDICADOR DE VALOR TOTAL */
+
+#total {
+    border-left: 5px solid var(--warning) !important;
+    color: var(--warning);
+}
+
+/* =========================================
+   CADASTRO DE PRODUTOS
+========================================= */
+
+#cadastro-produtos {
+    grid-column: 1;
+}
+
+#form-cadastro {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#form-cadastro label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+}
+
+#form-cadastro input {
+    width: 100%;
+    padding: 13px 14px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--text);
+
+    background: #ffffff;
+
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    margin-bottom: 8px;
+}
+
+#form-cadastro input::placeholder {
+    color: #94a3b8;
+}
+
+#form-cadastro input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* =========================================
+   BOTÕES DO FORMULÁRIO
+========================================= */
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.2s;
+}
+
+button:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: 2px;
+}
+
+/* BOTÃO CADASTRAR / SALVAR */
+
+#botaoCadastro {
+    width: 100%;
+    padding: 14px;
+
+    background: var(--primary);
+    color: white;
+
+    font-size: 15px;
+    border-radius: 8px;
+
+    margin-top: 10px;
+}
+
+#botaoCadastro:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+#botaoCadastro:active {
+    transform: translateY(0);
+}
+
+/* BOTÃO CANCELAR EDIÇÃO */
+
+#cancelar-edicao {
+    width: 100%;
+    padding: 13px;
+
+    background: #e2e8f0;
+    color: #334155;
+
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+#cancelar-edicao:hover {
+    background: #cbd5e1;
+}
+
+/* RESPEITAR O ATRIBUTO HIDDEN DO HTML */
+
+[hidden] {
+    display: none !important;
+}
+
+/* =========================================
+   PRODUTOS CADASTRADOS
+========================================= */
+
+#produtos-cadastrados {
+    grid-column: 2;
+    overflow-x: auto;
+}
+
+/* CAMPO DE BUSCA */
+
+#buscar {
+    width: 100%;
+    padding: 14px 16px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-family: inherit;
+
+    background: #f8fafc;
+    color: var(--text);
+
+    outline: none;
+
+    margin-bottom: 24px;
+
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#buscar::placeholder {
+    color: #94a3b8;
+}
+
+#buscar:focus {
+    background: white;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* =========================================
+   TABELA DE PRODUTOS
+========================================= */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 560px;
+}
+
+/* CABEÇALHO DA TABELA */
+
+thead {
+    background: #f1f5f9;
+}
+
+thead th {
+    padding: 16px 12px;
+    text-align: left;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    border-bottom: 2px solid var(--border);
+}
+
+/* LINHAS DA TABELA */
+
+tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background-color 0.2s;
+}
+
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+/* CÉLULAS */
+
+tbody td {
+    padding: 16px 12px;
+    color: #334155;
+    vertical-align: middle;
+    overflow-wrap: anywhere;
+}
+
+/* NOME DO PRODUTO */
+
+tbody td:first-child {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+/* VALORES NUMÉRICOS */
+
+tbody td:nth-child(2),
+tbody td:nth-child(3),
+tbody td:nth-child(4) {
+    font-variant-numeric: tabular-nums;
+}
+
+/* VALOR TOTAL DO PRODUTO */
+
+tbody td:nth-child(4) {
+    font-weight: 700;
+    color: var(--success);
+}
+
+/* =========================================
+   BOTÕES EDITAR E EXCLUIR
+========================================= */
+
+/* CÉLULA DE AÇÕES */
+
+tbody td:last-child {
+    white-space: nowrap;
+}
+
+/* ESTILO BASE DOS BOTÕES */
+
+tbody button {
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 3px;
+}
+
+/* BOTÃO EDITAR
+   Primeiro botão criado no JavaScript */
+
+tbody button:first-child {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+tbody button:first-child:hover {
+    background: #bfdbfe;
+}
+
+/* BOTÃO EXCLUIR
+   Segundo botão criado no JavaScript */
+
+tbody button:last-child {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+tbody button:last-child:hover {
+    background: #fecaca;
+}
+
+/* =========================================
+   TABELA VAZIA
+========================================= */
+
+#lista-produtos tr:only-child td[colspan="5"] {
+    text-align: center;
+    padding: 45px 20px;
+
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+/* =========================================
+   RESPONSIVIDADE - TABLETS
+========================================= */
+
+@media (max-width: 1024px) {
+
+    main {
+        grid-template-columns: 300px minmax(0, 1fr);
+        gap: 18px;
+    }
+
+    section {
+        padding: 22px;
+    }
+
+    #gerenciamento-produto {
+        gap: 14px;
+    }
+
+    #gerenciamento-produto p {
+        padding: 18px;
+        font-size: 16px;
+    }
+}
+
+/* =========================================
+   RESPONSIVIDADE - CELULARES
+========================================= */
+
+@media (max-width: 768px) {
+
+    header {
+        padding: 22px 20px;
+    }
+
+    header h1 {
+        font-size: 23px;
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+
+        margin: 24px auto;
+        padding: 0 15px;
+        gap: 20px;
+    }
+
+    section {
+        width: 100%;
+        padding: 22px;
+    }
+
+    section h2 {
+        font-size: 18px;
+    }
+
+    /* PAINEL */
+
+    #gerenciamento-produto {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    #gerenciamento-produto h2 {
+        grid-column: 1;
+    }
+
+    #gerenciamento-produto p {
+        padding: 20px;
+        font-size: 17px;
+    }
+
+    /* FORMULÁRIO */
+
+    #form-cadastro input {
+        font-size: 16px;
+    }
+
+    /* TABELA COM ROLAGEM HORIZONTAL */
+
+    #produtos-cadastrados {
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 560px;
+    }
+}
+
+/* =========================================
+   TELAS MUITO PEQUENAS
+========================================= */
+
+@media (max-width: 400px) {
+
+    header h1 {
+        font-size: 21px;
+    }
+
+    section {
+        padding: 18px;
+    }
+
+    #gerenciamento-produto p {
+        font-size: 15px;
+    }
+
+    #botaoCadastro {
+        font-size: 14px;
+    }
+}
